@@ -15,5 +15,38 @@
             <a href="contact.html">contact</a>
         </nav>
     </div>
+    <script>
+        fetch("/about").then(function(games){
+            games.json().then(function(thegames){
+                console.log(thegames);
+                for (let game of thegames.game){
+                    console.log(game);
+                    let gameELement = document.createElement('p');
+                    gameELement.innerHTML = game.game;
+                    document.body.appendChild(gameELement);
+
+                    //Adds Delete Button
+                    let deleteBtn = document.createElement('button');
+                    deleteBtn.innerText = "Delete";
+                    deleteBtn.addEventListener('click', function deleteGame(){
+                        alert('deleting ' + game._id);
+                        location.reload();
+                        fetch("/deleteGame", {
+                            method:"POST",
+                            headers:{
+                                "Content-Type":"application/json"
+                            },
+                            body:JSON.stringify({
+                                _id:game._id
+                            })
+                        });
+                    });
+                    gameELement.appendChild(deleteBtn);
+                }
+            });
+
+        });
+
+    </script>
 </body>
 </html>

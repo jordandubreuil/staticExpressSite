@@ -6,7 +6,16 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Static Express Server</title>
     <link rel="stylesheet" href="css/style.css" type="text/css">
-    <script src="js/script.js"></script>
+    <script>
+            function checkForm(){
+                
+                if(document.getElementById("GameTitle").value == ""){
+                    event.preventDefault();
+                    document.getElementById('err').innerHTML = "You need a game entry";
+                }
+                
+            }
+    </script>
 </head>
 <body>
     <div>
@@ -18,5 +27,16 @@
         </nav>
         <img src="images/bg.jpeg" alt="test image">
     </div>
+    <form action="/gamePost" method="POST" onsubmit="return checkForm()">
+        <span id="err" style="color:red"></span>
+        <br>
+        <label for="game">Enter Game Title</label>
+        <br>
+        <input type="text" name="game" id="GameTitle">
+        <br>
+        <button type="submit">Submit</button>
+    </form>
+    
+
 </body>
 </html>
